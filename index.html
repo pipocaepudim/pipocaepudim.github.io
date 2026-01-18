@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogos Pipoca e Pudim</title>
+    <style>
+        /* ESTILO GERAL (Fofinho e Colorido) */
+        body {
+            margin: 0;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif; /* Fonte infantil */
+            background-color: #f0f8ff; /* Azul clarinho */
+            background-image: radial-gradient(#e6e6fa 2px, transparent 2px);
+            background-size: 30px 30px;
+            overflow: hidden; /* Evita barras de rolagem duplas */
+        }
+
+        /* CABEÇALHO */
+        header {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 0 #c44d4d;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 { margin: 0; font-size: 1.5rem; }
+
+        /* O MENU DE JOGOS (Aparece no início) */
+        #menu-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px;
+            height: 80vh;
+            align-content: center;
+        }
+
+        /* BOTÕES DOS JOGOS (Cartões) */
+        .game-card {
+            background: white;
+            border: 4px solid #4ecdc4;
+            border-radius: 20px;
+            width: 200px;
+            height: 250px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .game-card:hover {
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background-color: #fff9c4; /* Amarelo clarinho ao passar o mouse */
+        }
+
+        .icon { font-size: 4rem; margin-bottom: 10px; }
+        .title { font-weight: bold; color: #555; font-size: 1.2rem; }
+
+        /* A TELA DO JOGO (Fica escondida no início) */
+        #game-view {
+            display: none; /* Começa invisível */
+            position: absolute;
+            top: 60px; /* Altura do cabeçalho */
+            left: 0;
+            width: 100%;
+            height: calc(100% - 60px);
+            background: black;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* BOTÃO VOLTAR */
+        #back-btn {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ffe66d;
+            border: 3px solid #ffd166;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 20;
+        }
+        #back-btn:hover { background: #ffd166; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <button id="back-btn" onclick="voltarParaMenu()">⬅ Voltar</button>
+        <h1>🎮 Jogos Pipoca e Pudim</h1>
+    </header>
+
+    <div id="menu-container">
+        
+        <div class="game-card" onclick="abrirJogo('boi-da-cara-preta')">
+            <div class="icon">🐮</div>
+            <div class="title">Boi da Cara Preta</div>
+        </div>
+
+        <div class="game-card" onclick="abrirJogo('jogo-da-memoria')">
+            <div class="icon">🧩</div>
+            <div class="title">Jogo da Memória</div>
+        </div>
+
+        <div class="game-card" onclick="abrirJogo('colorir')">
+            <div class="icon">🎨</div>
+            <div class="title">Vamos Pintar!</div>
+        </div>
+
+    </div>
+
+    <div id="game-view">
+        <iframe id="game-frame" src=""></iframe>
+    </div>
+
+    <script>
+        // Função para abrir o jogo
+        function abrirJogo(nomeDaPasta) {
+            // 1. Esconde o menu
+            document.getElementById('menu-container').style.display = 'none';
+            
+            // 2. Mostra a tela do jogo e o botão voltar
+            document.getElementById('game-view').style.display = 'block';
+            document.getElementById('back-btn').style.display = 'block';
+
+            // 3. Carrega o jogo no iframe
+            // Ele vai procurar: pasta_do_jogo/index.html
+            var caminho = nomeDaPasta + "/index.html";
+            document.getElementById('game-frame').src = caminho;
+        }
+
+        // Função para voltar ao menu
+        function voltarParaMenu() {
+            // 1. Limpa o iframe (para o som do jogo parar!)
+            document.getElementById('game-frame').src = "";
+
+            // 2. Esconde o jogo
+            document.getElementById('game-view').style.display = 'none';
+            document.getElementById('back-btn').style.display = 'none';
+
+            // 3. Mostra o menu de novo
+            document.getElementById('menu-container').style.display = 'flex';
+        }
+    </script>
+
+</body>
+</html>
