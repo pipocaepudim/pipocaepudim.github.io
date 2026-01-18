@@ -10,15 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* --- CONFIGURAÇÕES GERAIS --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* --- GERAL --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* Fundo Céu Azul com Degradê */
             background: linear-gradient(to bottom, #4FC3F7, #E1F5FE);
             font-family: 'Fredoka', sans-serif;
             min-height: 100vh;
@@ -26,119 +21,110 @@
             text-align: center;
         }
 
-        /* --- CABEÇALHO (LOGO) --- */
+        /* --- CABEÇALHO COM PERSONAGENS --- */
         header {
-            padding: 30px 20px;
+            padding: 20px;
             margin-bottom: 20px;
         }
 
+        /* Container que alinha: Pipoca - Título - Pudim */
+        .cabecalho-container {
+            display: flex;
+            justify-content: center; /* Centraliza tudo */
+            align-items: center; /* Alinha na altura */
+            gap: 20px; /* Espaço entre os bichos e o texto */
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Estilo dos Mascotes no Topo */
+        .mascote-topo {
+            height: 110px; /* Altura do bicho */
+            width: auto;
+            /* Animação divertida */
+            animation: balanco 3s infinite ease-in-out;
+            filter: drop-shadow(5px 5px 0px rgba(0,0,0,0.2)); /* Sombra no bicho */
+        }
+
+        /* Estilo do Título */
         .titulo-site {
             font-family: 'Titan One', cursive;
             font-size: 48px;
-            color: #FFEB3B; /* Amarelo Pipoca */
-            /* Borda grossa ao redor da letra (Estilo Cartoon) */
-            -webkit-text-stroke: 2px #E65100; /* Laranja escuro */
+            color: #FFEB3B; 
+            -webkit-text-stroke: 2px #E65100;
             text-shadow: 4px 4px 0px #000000;
-            letter-spacing: 2px;
-            animation: flutuarLogo 3s infinite ease-in-out;
+            line-height: 1.1;
         }
 
-        /* --- A GRADE DE JOGOS (ONDE FICAM OS BOTÕES) --- */
+        /* --- JOGOS --- */
         .grade-jogos {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap; /* Permite quebrar linha no celular */
-            gap: 40px; /* Espaço entre os jogos */
+            flex-wrap: wrap;
+            gap: 40px;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             padding-bottom: 100px;
         }
 
-        /* --- O CARTÃO DO JOGO (O BOTÃO EM SI) --- */
         .cartao-jogo {
             position: relative;
             width: 260px;
             height: 260px;
-            text-decoration: none; /* Remove sublinhado */
+            text-decoration: none;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efeito elástico */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Efeito ao passar o mouse (Juice!) */
         .cartao-jogo:hover {
-            transform: scale(1.1) rotate(3deg); /* Cresce e gira um pouco */
+            transform: scale(1.1) rotate(3deg);
             z-index: 10;
         }
 
-        /* CAMADA 1: A MOLDURA (FUNDO) */
+        /* CAMADAS DO BOTÃO */
         .camada-moldura {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #FFF; /* Fundo branco dentro da moldura */
-            border: 8px solid #FF9800; /* Borda Laranja */
-            border-radius: 25px; /* Cantos arredondados */
-            box-shadow: 0px 10px 0px rgba(0,0,0,0.2); /* Sombra 3D embaixo */
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #FFF;
+            border: 8px solid #FF9800;
+            border-radius: 25px;
+            box-shadow: 0px 10px 0px rgba(0,0,0,0.2);
             z-index: 1;
         }
 
-        /* CAMADA 2: O PERSONAGEM (MEIO) */
         .camada-personagem {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            width: calc(100% - 30px);
-            height: 65%;
-            object-fit: contain; /* Ajusta a imagem sem esticar */
+            top: 15px; left: 15px; width: calc(100% - 30px); height: 65%;
+            object-fit: contain;
             z-index: 2;
             transition: transform 0.3s;
         }
 
-        /* O personagem "pula" quando passa o mouse */
         .cartao-jogo:hover .camada-personagem {
             transform: scale(1.15) translateY(-10px);
         }
 
-        /* CAMADA 3: O TÍTULO DO JOGO (FRENTE) */
         .camada-titulo {
-            position: absolute;
-            bottom: 15px;
-            width: 100%;
-            text-align: center;
-            z-index: 3;
-            
-            font-family: 'Titan One', cursive;
-            font-size: 24px;
-            line-height: 1;
-            color: #FFFFFF;
-            
-            /* Contorno do texto para leitura fácil */
-            -webkit-text-stroke: 4px #3E2723; /* Marrom escuro */
-            paint-order: stroke fill;
+            position: absolute; bottom: 15px; width: 100%;
+            text-align: center; z-index: 3;
+            font-family: 'Titan One', cursive; font-size: 24px; color: #FFFFFF;
+            -webkit-text-stroke: 4px #3E2723; paint-order: stroke fill;
             text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
-        }
-
-        /* --- RODAPÉ --- */
-        footer {
-            margin-top: 50px;
-            padding: 20px;
-            color: #01579B;
-            font-weight: bold;
         }
 
         /* --- RESPONSIVIDADE (CELULAR) --- */
         @media (max-width: 600px) {
-            .titulo-site { font-size: 32px; }
+            .titulo-site { font-size: 28px; }
+            .mascote-topo { height: 60px; } /* Diminui os bichos no celular */
+            .cabecalho-container { gap: 10px; } /* Diminui o espaço */
             .cartao-jogo { width: 90%; max-width: 300px; height: 280px; }
         }
 
-        /* Animação suave do logo */
-        @keyframes flutuarLogo {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        /* Animações */
+        @keyframes balanco {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
         }
 
     </style>
@@ -146,37 +132,35 @@
 <body>
 
     <header>
-        <div class="titulo-site">
-            JOGOS PIPOCA E PUDIM
+        <div class="cabecalho-container">
+            <img src="imagens/Pipoca.png" class="mascote-topo" alt="Pipoca">
+            
+            <div class="titulo-site">
+                JOGOS PIPOCA E PUDIM
+            </div>
+
+            <img src="imagens/Pudim.png" class="mascote-topo" alt="Pudim">
         </div>
     </header>
 
     <div class="grade-jogos">
 
         <a href="boi-da-cara-preta/index.html" class="cartao-jogo">
-            <div class="camada-moldura" style="border-color: #8D6E63;"></div> <img src="https://cdn-icons-png.flaticon.com/512/2395/2395796.png" class="camada-personagem" alt="Boi">
-            
+            <div class="camada-moldura" style="border-color: #8D6E63;"></div>
+            <img src="https://cdn-icons-png.flaticon.com/512/2395/2395796.png" class="camada-personagem" alt="Boi">
             <div class="camada-titulo">BOI DA<br>CARA PRETA</div>
         </a>
 
-
         <a href="jogo-memoria/index.html" class="cartao-jogo">
-            <div class="camada-moldura" style="border-color: #4CAF50;"></div> <img src="https://cdn-icons-png.flaticon.com/512/3069/3069172.png" class="camada-personagem" alt="Menino">
-            
+            <div class="camada-moldura" style="border-color: #4CAF50;"></div>
+            <img src="https://cdn-icons-png.flaticon.com/512/3069/3069172.png" class="camada-personagem" alt="Menino">
             <div class="camada-titulo">JOGO DA<br>MEMÓRIA</div>
         </a>
 
-
         <a href="vamos-pintar/index.html" class="cartao-jogo">
-            <div class="camada-moldura" style="border-color: #E91E63;"></div> <img src="https://cdn-icons-png.flaticon.com/512/3214/3214746.png" class="camada-personagem" alt="Tinta">
-            
+            <div class="camada-moldura" style="border-color: #E91E63;"></div>
+            <img src="https://cdn-icons-png.flaticon.com/512/3214/3214746.png" class="camada-personagem" alt="Tinta">
             <div class="camada-titulo">VAMOS<br>PINTAR!</div>
-        </a>
-
-        <a href="#" class="cartao-jogo" style="opacity: 0.6;">
-            <div class="camada-moldura" style="border-color: #9E9E9E; border-style: dashed;"></div>
-            <img src="https://cdn-icons-png.flaticon.com/512/10699/10699470.png" class="camada-personagem" alt="Novo">
-            <div class="camada-titulo">EM BREVE</div>
         </a>
 
     </div>
