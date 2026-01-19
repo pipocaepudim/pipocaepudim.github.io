@@ -14,39 +14,62 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: linear-gradient(to bottom, #4FC3F7, #E1F5FE);
+            /* SEU FUNDO NOVO */
+            background: url('imagens/fundomundopipocaepudim.jpg') no-repeat center center fixed;
+            background-size: cover;
+            
             font-family: 'Fredoka', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
             text-align: center;
         }
 
-        /* --- CABEÇALHO COM PERSONAGENS --- */
+        /* --- BOTÃO HOME NO CANTO (NOVO!) --- */
+        .botao-home-fixo {
+            position: absolute; /* Fica preso no canto */
+            top: 20px;
+            left: 20px;
+            width: 70px; /* Tamanho do botão */
+            height: 70px;
+            transition: transform 0.2s;
+            z-index: 100; /* Fica por cima de tudo */
+            filter: drop-shadow(0px 4px 0px rgba(0,0,0,0.2));
+        }
+
+        .botao-home-fixo:hover {
+            transform: scale(1.1); /* Cresce quando passa o mouse */
+            cursor: pointer;
+        }
+
+        .botao-home-fixo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* --- CABEÇALHO --- */
         header {
             padding: 20px;
             margin-bottom: 20px;
+            margin-top: 20px; /* Espaço extra por causa do botão Home */
         }
 
-        /* Container que alinha: Pipoca - Título - Pudim */
         .cabecalho-container {
             display: flex;
-            justify-content: center; /* Centraliza tudo */
-            align-items: center; /* Alinha na altura */
-            gap: 20px; /* Espaço entre os bichos e o texto */
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
             max-width: 1000px;
             margin: 0 auto;
         }
 
-        /* Estilo dos Mascotes no Topo */
         .mascote-topo {
-            height: 110px; /* Altura do bicho */
+            height: 110px;
             width: auto;
-            /* Animação divertida */
             animation: balanco 3s infinite ease-in-out;
-            filter: drop-shadow(5px 5px 0px rgba(0,0,0,0.2)); /* Sombra no bicho */
+            filter: drop-shadow(5px 5px 0px rgba(0,0,0,0.2));
         }
 
-        /* Estilo do Título */
         .titulo-site {
             font-family: 'Titan One', cursive;
             font-size: 48px;
@@ -82,10 +105,8 @@
             z-index: 10;
         }
 
-        /* CAMADAS DO BOTÃO */
         .camada-moldura {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #FFF;
             border: 8px solid #FF9800;
             border-radius: 25px;
@@ -94,34 +115,30 @@
         }
 
         .camada-personagem {
-            position: absolute;
-            top: 15px; left: 15px; width: calc(100% - 30px); height: 65%;
-            object-fit: contain;
-            z-index: 2;
-            transition: transform 0.3s;
+            position: absolute; top: 15px; left: 15px; width: calc(100% - 30px); height: 65%;
+            object-fit: contain; z-index: 2; transition: transform 0.3s;
         }
 
-        .cartao-jogo:hover .camada-personagem {
-            transform: scale(1.15) translateY(-10px);
-        }
+        .cartao-jogo:hover .camada-personagem { transform: scale(1.15) translateY(-10px); }
 
         .camada-titulo {
-            position: absolute; bottom: 15px; width: 100%;
-            text-align: center; z-index: 3;
+            position: absolute; bottom: 15px; width: 100%; text-align: center; z-index: 3;
             font-family: 'Titan One', cursive; font-size: 24px; color: #FFFFFF;
             -webkit-text-stroke: 4px #3E2723; paint-order: stroke fill;
             text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
         }
 
-        /* --- RESPONSIVIDADE (CELULAR) --- */
+        /* --- RESPONSIVIDADE --- */
         @media (max-width: 600px) {
             .titulo-site { font-size: 28px; }
-            .mascote-topo { height: 60px; } /* Diminui os bichos no celular */
-            .cabecalho-container { gap: 10px; } /* Diminui o espaço */
+            .mascote-topo { height: 60px; }
+            .cabecalho-container { gap: 10px; flex-wrap: wrap; }
             .cartao-jogo { width: 90%; max-width: 300px; height: 280px; }
+            
+            /* No celular, o botão Home diminui um pouco */
+            .botao-home-fixo { width: 50px; height: 50px; left: 10px; top: 10px; }
         }
 
-        /* Animações */
         @keyframes balanco {
             0%, 100% { transform: rotate(-5deg); }
             50% { transform: rotate(5deg); }
@@ -131,14 +148,14 @@
 </head>
 <body>
 
+    <a href="index.html" class="botao-home-fixo">
+        <img src="imagens/Home.png" alt="Início">
+    </a>
+
     <header>
         <div class="cabecalho-container">
             <img src="imagens/Pipoca.png" class="mascote-topo" alt="Pipoca">
-            
-            <div class="titulo-site">
-                JOGOS PIPOCA E PUDIM
-            </div>
-
+            <div class="titulo-site">JOGOS PIPOCA E PUDIM</div>
             <img src="imagens/Pudim.png" class="mascote-topo" alt="Pudim">
         </div>
     </header>
@@ -166,7 +183,7 @@
     </div>
 
     <footer>
-        <p>Feito com ❤️ para Pipoca e Pudim</p>
+        <p style="color: white; font-weight: bold; text-shadow: 1px 1px 2px black;">Feito com ❤️ para Pipoca e Pudim</p>
     </footer>
 
 </body>
