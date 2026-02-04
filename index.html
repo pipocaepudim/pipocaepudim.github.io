@@ -14,30 +14,28 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* SEU FUNDO NOVO */
             background: url('imagens/fundomundopipocaepudim.jpg') no-repeat center center fixed;
             background-size: cover;
-            
             font-family: 'Fredoka', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
             text-align: center;
         }
 
-        /* --- BOTÃO HOME NO CANTO (NOVO!) --- */
+        /* --- BOTÃO HOME NO CANTO --- */
         .botao-home-fixo {
-            position: absolute; /* Fica preso no canto */
+            position: absolute;
             top: 20px;
             left: 20px;
-            width: 70px; /* Tamanho do botão */
+            width: 70px;
             height: 70px;
             transition: transform 0.2s;
-            z-index: 100; /* Fica por cima de tudo */
+            z-index: 100;
             filter: drop-shadow(0px 4px 0px rgba(0,0,0,0.2));
         }
 
         .botao-home-fixo:hover {
-            transform: scale(1.1); /* Cresce quando passa o mouse */
+            transform: scale(1.1);
             cursor: pointer;
         }
 
@@ -51,7 +49,7 @@
         header {
             padding: 20px;
             margin-bottom: 20px;
-            margin-top: 20px; /* Espaço extra por causa do botão Home */
+            margin-top: 20px;
         }
 
         .cabecalho-container {
@@ -128,14 +126,41 @@
             text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
         }
 
+        /* --- NOVO: ESTILO DO SELO DE VITÓRIA --- */
+        .selo-concluido {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 60px;
+            height: 60px;
+            background: #4CAF50; /* Verde */
+            border: 5px solid white;
+            border-radius: 50%;
+            display: none; /* Escondido por padrão */
+            z-index: 20;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Mostra o selo apenas se o cartão tiver a classe 'concluido' */
+        .cartao-jogo.concluido .selo-concluido {
+            display: flex;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
         /* --- RESPONSIVIDADE --- */
         @media (max-width: 600px) {
             .titulo-site { font-size: 28px; }
             .mascote-topo { height: 60px; }
             .cabecalho-container { gap: 10px; flex-wrap: wrap; }
             .cartao-jogo { width: 90%; max-width: 300px; height: 280px; }
-            
-            /* No celular, o botão Home diminui um pouco */
             .botao-home-fixo { width: 50px; height: 50px; left: 10px; top: 10px; }
         }
 
@@ -162,19 +187,22 @@
 
     <div class="grade-jogos">
 
-        <a href="boi-da-cara-preta/index.html" class="cartao-jogo">
+        <a href="boi-da-cara-preta/index.html" class="cartao-jogo" id="boi-da-cara-preta">
+            <div class="selo-concluido">✅</div>
             <div class="camada-moldura" style="border-color: #8D6E63;"></div>
             <img src="https://cdn-icons-png.flaticon.com/512/2395/2395796.png" class="camada-personagem" alt="Boi">
             <div class="camada-titulo">BOI DA<br>CARA PRETA</div>
         </a>
 
-        <a href="jogo-memoria/index.html" class="cartao-jogo">
+        <a href="jogo-memoria/index.html" class="cartao-jogo" id="jogo-memoria">
+            <div class="selo-concluido">✅</div>
             <div class="camada-moldura" style="border-color: #4CAF50;"></div>
             <img src="https://cdn-icons-png.flaticon.com/512/3069/3069172.png" class="camada-personagem" alt="Menino">
             <div class="camada-titulo">JOGO DA<br>MEMÓRIA</div>
         </a>
 
-        <a href="vamos-pintar/index.html" class="cartao-jogo">
+        <a href="vamos-pintar/index.html" class="cartao-jogo" id="vamos-pintar">
+            <div class="selo-concluido">✅</div>
             <div class="camada-moldura" style="border-color: #E91E63;"></div>
             <img src="https://cdn-icons-png.flaticon.com/512/3214/3214746.png" class="camada-personagem" alt="Tinta">
             <div class="camada-titulo">VAMOS<br>PINTAR!</div>
@@ -184,7 +212,28 @@
 
     <footer>
         <p style="color: white; font-weight: bold; text-shadow: 1px 1px 2px black;">Feito com ❤️ de Pipoca e Pudim</p>
+        <button onclick="localStorage.clear(); location.reload();" style="margin-top:20px; cursor:pointer; padding:5px; border-radius:5px; border:none; background:#eee; font-size:10px;">Resetar Testes</button>
     </footer>
+
+    <script>
+        function verificarProgresso() {
+            // IDs dos jogos que você configurou nos links acima
+            const idsJogos = ["boi-da-cara-preta", "jogo-memoria", "vamos-pintar"];
+
+            idsJogos.forEach(id => {
+                // Se o navegador tiver o registro de que esse jogo foi completo
+                if (localStorage.getItem("completo_" + id) === "true") {
+                    const cartao = document.getElementById(id);
+                    if (cartao) {
+                        cartao.classList.add("concluido");
+                    }
+                }
+            });
+        }
+
+        // Executa a função assim que a página terminar de carregar
+        window.onload = verificarProgresso;
+    </script>
 
 </body>
 </html>
